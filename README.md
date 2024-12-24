@@ -1,24 +1,55 @@
-# API Sample Test
+# Debrief
 
-## Getting Started
+## Walkthrough Video <https://vimeo.com/1041865662/d797e188f4?share=copy>
 
-This project requires a newer version of Node. Don't forget to install the NPM packages afterwards.
+## Project Structure
 
-You should change the name of the ```.env.example``` file to ```.env```.
+```
+├── config/
+│ └── hubspot.config.js
+│
+├── processors/
+│ ├── companies.processor.js
+│ ├── contacts.processor.js
+│ └── meetings.processor.js
+├── services/
+│ ├── auth.service.js
+│ ├── domain.service.js
+│ └── queue.service.js
+├── utils
 
-Run ```node app.js``` to get things started. Hopefully the project should start without any errors.
+```
 
-## Explanations
+## Optimizations made
 
-The actual task will be explained separately.
+### Code Structure
 
-This is a very simple project that pulls data from HubSpot's CRM API. It pulls and processes company and contact data from HubSpot but does not insert it into the database.
+- ✅ Modular processor architecture: Each processor is responsible for fetching and processing data for a specific entity.
+- ✅ Service-based design pattern: Services are used to handle authentication, domain-specific logic, and queue management.
+- ✅ Centralized configuration: Configuration (hubspot.config.js) is stored in a single file for easy access and modification.
+- ✅ Utility functions: Shared utility functions have been moved to the utils file.
 
-In HubSpot, contacts can be part of companies. HubSpot calls this relationship an association. That is, a contact has an association with a company. We make a separate call when processing contacts to fetch this association data.
+### Performance
 
-The Domain model is a record signifying a HockeyStack customer. You shouldn't worry about the actual implementation of it. The only important property is the ```hubspot```object in ```integrations```. This is how we know which HubSpot instance to connect to.
+- ✅ Contact email caching for faster lookups: Contact emails are cached to avoid redundant API calls.
+- ✅ Batch fetch of data: Data is fetched in batches to reduce the number of API calls.
+- ✅ Pagination handling: Pagination is handled efficiently.
 
-The implementation of the server and the ```server.js``` is not important for this project.
+## Improvements that can still be made
 
-Every data source in this project was created for test purposes. If any request takes more than 5 seconds to execute, there is something wrong with the implementation.
+### On Code Quality and Readability
 
+- TypeScript for type safety
+- Winston for logging
+- Write unit tests for coverage
+
+### On Architecture
+
+- Implement proper dependency injection
+- Create monitoring and metrics service
+
+### On Performance
+
+- Similar to the meeting processor, the company and contact processors can be optimized to fetch data in batches.
+- Worker threads can be implemented for parallel processing
+- The database is updated for every processor (3 times). This can be optimized by updating the database once after all the processors have completed.

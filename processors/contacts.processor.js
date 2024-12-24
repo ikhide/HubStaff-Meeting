@@ -13,7 +13,7 @@ class ContactProcessor {
     const account = domain.integrations.hubspot.accounts.find(
       (account) => account.hubId === hubId
     );
-    const lastPulledDate = new Date("2020-03-03");
+    const lastPulledDate = new Date(account.lastPulledDates.contacts);
     const now = new Date();
 
     let hasMore = true;

@@ -19,7 +19,7 @@ class MeetingProcessor {
       const account = domain.integrations.hubspot.accounts.find(
         (a) => a.hubId === hubId
       );
-      const lastPulledDate = new Date("2020-01-01");
+      const lastPulledDate = new Date(account.lastPulledDates.meetings);
       const now = new Date();
 
       let processed = 0;
