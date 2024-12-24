@@ -41,7 +41,8 @@
 
 - TypeScript for type safety
 - Winston for logging
-- Write unit tests for coverage
+- Write unit tests and maintain 100% test coverage
+- Add JSDoc comments for better documentation
 
 ### On Architecture
 
